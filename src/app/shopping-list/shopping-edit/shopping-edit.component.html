@@ -1,0 +1,62 @@
+<mat-card style="margin: 10px">
+
+  <mat-card-title>
+    Add Ingredient
+  </mat-card-title>
+
+  <mat-card-content>
+    <form (ngSubmit)="onAddItem()" #f="ngForm">
+
+      <mat-form-field style="width: 100%;">
+        <input #ingName
+          matInput
+          type="text" 
+          id="name" 
+          name="name"
+          placeholder="Name"
+          ngModel
+          required
+        >
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <input #ingAmount
+          matInput
+          type="number" 
+          id="amount" 
+          name="amount"
+          placeholder="Amount"
+          ngModel
+          required
+          pattern="^[1-9]+[0-9]*$"
+        >
+      </mat-form-field>
+          
+
+          <button mat-button
+            color="primary"
+            type="submit" 
+            pull-left
+            [disabled]="!f.valid">
+            {{ this.shoppingListService.startedEditing ? 'Update' : 'Add' }}
+          </button>
+
+          <button mat-button
+            color="warn"
+            type="button"
+            [disabled]="!this.shoppingListService.startedEditing"
+            (click)="onDelete()">
+            Delete
+          </button>
+
+          <button mat-button
+            color="accent"
+            type="button" 
+            (click)="onCancel()">
+            {{ this.shoppingListService.startedEditing ? 'Cancel' : 'Clear'}}
+          </button>
+
+
+    </form>
+  </mat-card-content>
+</mat-card>

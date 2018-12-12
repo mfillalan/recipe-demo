@@ -1,0 +1,59 @@
+
+  <mat-card style="margin: 10px; max-width: 400px;">
+    <img [src]="recipe.imagePath" mat-card-image>
+
+    <mat-card-title>
+      {{ recipe.name }}
+    </mat-card-title>
+
+    <mat-card-content>
+      {{ (recipe.description.length > 200)? (recipe.description | slice:0:200)+'...':(recipe.description) }}
+    </mat-card-content>
+
+    <mat-card-actions align="end" >
+      <div fxHide.xs>
+        <button mat-button 
+          color="primary" 
+          (click)="onAddToShoppingList(recipe.ingredients)">
+          Add Ingredients to List
+        </button>
+        <button mat-button 
+          (click)="onEditRecipe()" 
+          [disabled]="!authService.isAuthenticated()">
+          Edit
+        </button>
+        <button mat-button 
+          color="warn" 
+          (click)="onDeleteRecipe()"
+          [disabled]="!authService.isAuthenticated()">
+          Delete
+        </button>
+      </div>
+
+      <div fxHide.gt-xs> 
+        <mat-menu #cardMenu>
+          <button mat-menu-item 
+            color="primary" 
+            (click)="onAddToShoppingList(recipe.ingredients)">
+            Add Ingredients to List
+          </button>
+          <button mat-menu-item 
+            (click)="onEditRecipe()" 
+            [disabled]="!authService.isAuthenticated()">
+            Edit
+          </button>
+          <button mat-menu-item 
+            color="warn" 
+            (click)="onDeleteRecipe()"
+            [disabled]="!authService.isAuthenticated()">
+            Delete
+          </button>
+        </mat-menu>
+
+        <button mat-icon-button [matMenuTriggerFor]="cardMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+
+  </mat-card>
